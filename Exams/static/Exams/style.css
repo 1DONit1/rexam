@@ -1,0 +1,120 @@
+.exam-content {
+    max-width: 200px;
+    min-width: 200px;
+    margin: .5rem .5rem;
+}
+
+.exam-wrapper {
+
+}
+
+.exam-header {
+    background: #6282DA;
+    padding: .5rem .5rem;
+    color: white;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+}
+
+.exam-name {
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.exam-link,
+.exam-link:hover,
+.exam-link:active {
+    text-decoration: none;
+    color: white;
+}
+
+.pagination {
+    margin: 0;
+}
+
+.page-item.active .page-link {
+    background: #0097a7;
+}
+
+.exam-footer {
+    font-size: .7rem;
+    border-top: 1px solid #C4C4C4;
+}
+
+.exam-footer .row {
+    margin: 0;
+    padding: .2rem .2rem;
+}
+
+.exam-description {
+    max-height: 150px;
+    overflow: hidden;
+    font-size: 1rem;
+    text-overflow: ellipsis;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-width: 1px 1px 1px 2px;
+    border-color: #777;
+    background-color: #aaa;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    border-width: 1px 1px 1px 2px;
+    border-color: #555;
+    background-color: #777;
+}
+
+::-webkit-scrollbar-track:hover {
+    border-left: solid 1px #aaa;
+    background-color: #eee;
+}
+
+::-webkit-scrollbar-track {
+    border-width: 0;
+}
+
+.detail-name {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+    font-size: 1.4rem;
+    padding: .5rem .5rem;
+}
+
+.detail-info {
+    padding: .5rem .5rem;
+}
+
+.detail-info div {
+    padding: .2rem .2rem;
+}
+
+.detail-description {
+    padding: .5rem .2rem;
+}
+
+.exam-questions table th {
+    text-align: center;
+}
+
+.exam-questions table {
+    vertical-align: middle;
+}
+
+.question-controls {
+    padding: .5rem;
+}
+.table td, .table th {
+    border: none;
+}
+
+.table{
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+}

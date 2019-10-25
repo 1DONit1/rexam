@@ -1,0 +1,40 @@
+{% extends 'RExam/BaseContent.html' %}
+{% block control-item %}{% endblock %}
+{% block head_title %} Добавить экзамен {% endblock head_title %}
+{% block content %}
+    <div class="card bg-light shadow-sm m-1">
+        <form class="p-4" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h5 class="text-center">Добавить экзамен</h5>
+            {% for field in form %}
+                {% if forloop.last %}
+                    <div class="form-group">
+                        <label class="d-block" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        <a href="{% url 'SubjectCreate' %}" class="btn btn-success mb-1"><i
+                                class="fas fa-plus"></i></a>
+                        {% if field.errors %}
+                            <div class="alert alert-danger mt-2">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="form-group">
+                        <label class="d-block" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="alert alert-danger mt-2">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-success" type="submit">Добавить</button>
+            </div>
+
+        </form>
+    </div>
+{% endblock content %}

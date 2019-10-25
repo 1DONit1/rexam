@@ -1,0 +1,37 @@
+{% extends 'RExam/BaseContent.html' %}
+{% load static %}
+{% block head_title %}Экзамены{% endblock head_title %}
+{% block head_end %}
+    <link rel="stylesheet" href="{% static 'Exams/style.css' %}"/>
+{% endblock head_end %}
+{% block control-item %}
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'CreateExam' %}"> Добавить экзамен</a>
+    </li>
+{% endblock control-item %}
+{% block content %}
+    <div class="m-1">
+        <table class="table table-bordered shadow-sm table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th style="width: 3%; text-align: center" scope="col">№</th>
+                <th scope="col">Название</th>
+                <th style="width: 10%;text-align: center" scope="col">Предмет</th>
+                <th style="width: 15%;text-align: center" scope="col">Автор</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for exam in object_list %}
+                <tr>
+                    <th scope="row" class="text-center">{{ forloop.counter }}</th>
+                    <td><a href="{{ exam.get_detail_url }}">{{ exam.exam_header }}</a></td>
+                    <td class="text-center">{{ exam.exam_subject }}</td>
+                    <td class="text-center">{{ exam.exam_author.get_full_name }}</td>
+                </tr>
+            {% empty %}
+                <p class="pl-3">Экзамены отсутствуют...</p>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

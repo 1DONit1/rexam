@@ -1,0 +1,38 @@
+{% extends 'RExam/BaseContent.html' %}
+{% load static %}
+{% block head_title %}Экзамены{% endblock head_title %}
+{% block head_end %}
+    <link rel="stylesheet" href="{% static 'Exams/style.css' %}"/>
+{% endblock head_end %}
+{% block control-item %}
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'CreateExam' %}"> Добавить экзамен</a>
+    </li>
+{% endblock control-item %}
+{% block content %}
+    <div class="card bg-light shadow-sm m-1 p-2">
+        <div class="d-flex flex-row flex-wrap">
+            {% for exam in object_list %}
+                <div class="exam-content">
+                    <div class="exam-header">
+                        <a class="exam-link" href="{{ exam.get_detail_url }}">
+                            <div class="exam-name">{{ exam.exam_header }}</div>
+                        </a>
+                    </div>
+                    <div class="exam-wrapper">
+                        <div class="exam-description">{% if exam.exam_description %}{{ exam.exam_description }}{% endif %}</div>
+                        <div class="exam-footer">
+                            <div class="row">
+                                <div class="exam-subject">Предмет:{{ exam.exam_subject }}</div>
+                                <div class="exam-date">Дата создания: {{ exam.exam_date }}</div>
+                                <div class="exam-author">Автор: <span class="badge badge-primary">{{ exam.exam_author }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Экзамены отсутствуют...</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

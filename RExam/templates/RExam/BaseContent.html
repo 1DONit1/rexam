@@ -1,0 +1,65 @@
+{% extends 'RExam/base.html' %}
+{% block body_start %}
+    <div class="d-flex justify-content-center h-100">
+        <div class="container mt-lg-5">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-info menu shadow-sm m-1">
+                <a class="navbar-brand" href="">RExam</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'HomePage' %}">Главная</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'ListExams' %}">Экзамены</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'AboutPage' %}">О сайте</a>
+                        </li>
+                        {% if user.is_staff %}
+                            {% block control-item %}
+                            {% endblock control-item %}
+                        {% endif %}
+                        {% block menu_items %}
+                        {% endblock menu_items %}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="nav-item dropdown align-right">
+                            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false"><i class="far fa-user"></i>
+                                {{ user.get_full_name }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'Profile' %}">Мой профиль</a>
+                                <a class="dropdown-item" href="{% url 'ChangePassword' %}">Сменить пароль</a>
+                                <a class="dropdown-item" href="">Статистика</a>
+                                {% if user.is_staff %}<a class="dropdown-item" href="{% url 'admin:index' %}">Панель
+                                    Администратора</a>{% endif %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'LogOut' %}">Выход</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            {% block content %}
+                <div class="card bg-light shadow-sm m-1">
+
+                    <div class="card-body"><p>Контент отсутсвует</p></div>
+
+                </div>
+            {% endblock content %}
+
+            <div class="footer shadow-sm m-1">
+                <div class="footer-content bg-info">Designed by DONit</div>
+            </div>
+
+        </div>
+    </div>
+{% endblock body_start %}

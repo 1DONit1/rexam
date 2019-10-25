@@ -1,0 +1,48 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #fdfdfd;
+}
+
+.g-recaptcha {
+    transform: scale(0.83);
+    -webkit-transform: scale(0.83);
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+}
+
+.footer-content {
+    font-family: Roboto, sans-serif;
+    border-radius: 3px;
+    color: white;
+    padding: .5rem 1rem;
+}
+
+.menu {
+    font-family: Roboto, sans-serif;
+    border-radius: 3px;
+}
+
+table a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.paginator {
+    padding: .5rem 1rem;
+}
+
+.pagination {
+    margin: 0;
+}
+
+.page-item.active .page-link {
+    background: #0097a7;
+}
+.page-item .page-link {
+    color: #0097a7;
+}

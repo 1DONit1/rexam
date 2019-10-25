@@ -1,0 +1,10 @@
+{% extends 'RExam/BaseContent.html' %}
+{% block content %}
+    <div class="card bg-light shadow-sm m-1">
+        <form class="p-3" action="" method="POST">
+            {% csrf_token %}
+            <p>Вы действительно хотите удалить "{% block object_name %}{% endblock object_name %}" ?</p>
+            <button type="submit" value="Confirm" class="btn btn-danger">Удалить</button>
+        </form>
+    </div>
+{% endblock content %}

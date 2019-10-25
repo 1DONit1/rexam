@@ -1,0 +1,24 @@
+{% load static %}
+{% load fontawesome_5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <title>{% block head_title %}RExam{% endblock head_title %}</title>
+    <link rel="stylesheet" href="{% static 'RExam/bootstrap/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'RExam/style.css' %}"/>
+    {% fontawesome_5_static %}
+    {% block head_end %}{% endblock head_end %}
+</head>
+<body>
+{% block body_start %}
+    <p><a href="{% url 'LogOut' %}">Выйти</a></p>
+{% endblock body_start %}
+<script src="{% static 'RExam/bootstrap/jquery-3.4.0.min.js' %}"></script>
+<script src="{% static 'RExam/bootstrap/popper.min.js' %}"></script>
+<script src="{% static 'RExam/bootstrap/bootstrap.min.js' %}"></script>
+{% block body_end %}
+{% endblock body_end %}
+</body>
+</html>

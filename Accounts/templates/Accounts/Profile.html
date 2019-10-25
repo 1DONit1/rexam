@@ -1,0 +1,54 @@
+{% extends 'RExam/BaseContent.html' %}
+{% load recaptcha2 %}
+{% block head_title %} {{ object.get_full_name }}{% endblock head_title %}
+{% block head_end %}
+    {% recaptcha_init %}
+{% endblock head_end %}
+{% block content %}
+    <div class="card bg-light shadow-sm m-1">
+        <div class="card">
+            <form class="card-body" action="" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="login_data col-sm-6 col-12">
+                        <div class="header mb-2">Основные данные:</div>
+                        {% for field in form %}
+                            {% if not field.label %}
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                                {% if field.errors %}
+                                    <div class="alert alert-danger mt-2">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            {% else %}
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">{{ field.label }}</span>
+                                        </div>
+                                        {{ field }}
+                                    </div>
+                                    {% if field.errors %}
+                                        <div class="alert alert-danger mt-2">
+                                            {{ field.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                {% if forloop.counter == 2 %}
+                                    </div>
+                                    <div class="profile_data col-sm-6 col-12">
+                                    <div class="header mb-2">Данные профиля:</div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-success" type="submit">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

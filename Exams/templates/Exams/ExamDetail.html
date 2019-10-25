@@ -1,0 +1,19 @@
+{% extends 'RExam/BaseContent.html' %}
+{% load static %}
+{% block head_title %}{{ object.exam_header }}{% endblock head_title %}
+{% block head_end %}
+    <link rel="stylesheet" href="{% static 'Exams/style.css' %}"/>
+{% endblock head_end %}
+{% block content %}
+    <div class="card shadow-sm m-1">
+        <div class="card-header shadow-sm">
+            {{ object.exam_header }}
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ object.exam_description }}</p>
+            <footer class="blockquote-footer">{{ object.exam_subject }}
+                {{ object.exam_author }}
+                {{ object.exam_date }} </footer>
+        </div>
+    </div>
+{% endblock content %}
