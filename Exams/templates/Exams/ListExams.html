@@ -30,9 +30,17 @@
                     <td><a href="{{ exam.get_detail_url }}">{{ exam.exam_header }}</a></td>
                     <td class="text-center">{{ exam.exam_subject }}</td>
                     <td class="text-center">{{ exam.exam_author.get_full_name }}</td>
-                    {% if perms.Exams.delete_exam %}
-                        <td class="text-center"><a class="text-danger" href="{{ exam.get_delete_url }}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                    {% endif %}
+                    <td class="text-center">
+                        {% if perms.Exams.change_exam %}
+                            <a href="{{ exam.get_update_url }}" class="text-primary mr-2">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                        {% endif %}
+                        {% if perms.Exams.delete_exam %}
+                            <a class="text-danger" href="{{ exam.get_delete_url }}"><i
+                                    class="fa fa-trash" aria-hidden="true"></i></a>
+                        {% endif %}
+                    </td>
                 </tr>
             {% empty %}
                 <tr>

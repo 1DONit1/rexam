@@ -31,6 +31,9 @@ class Exam(Model):
     def get_delete_url(self):
         return reverse('ExamDelete', kwargs={'pk': self.id})
 
+    def get_update_url(self):
+        return reverse('ExamUpdate', kwargs={'pk': self.id})
+
     class Meta:
         verbose_name = u'Экзамен'
         verbose_name_plural = u'Экзамены'
