@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, DeleteView
 
 from Exams.forms import ExamsCreateForm, SubjectCreateForm
 from Exams.models import Exam, Subject
@@ -42,3 +42,10 @@ class ExamDetail(LoginRequiredMixin, DetailView):
         context = super(ExamDetail, self).get_context_data(**kwargs)
         context['question_count'] = "TODO"
         return context
+
+
+class ExamDelete(PermissionRequiredMixin, DeleteView):
+    model = Exam
+    permission_required = 'Exams.delete_exam'
+    success_url = reverse_lazy('ListExams')
+    template_name = 'Exams/ExamDelete.html'
