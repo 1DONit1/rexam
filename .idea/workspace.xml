@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bad41fe1-b2f3-4aec-8891-f3609c6df949" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Exams/templates/Exams/ExamUpdate.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Exams/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Exams/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exams/templates/Exams/ListExams.html" beforeDir="false" afterPath="$PROJECT_DIR$/Exams/templates/Exams/ListExams.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exams/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Exams/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Exams/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Exams/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -83,6 +79,7 @@
   </component>
   <component name="ProjectId" id="1PwDCaj9fVwouLcr9YlOg1o6aKF" />
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -212,7 +209,8 @@
       <workItem from="1572036476328" duration="150000" />
       <workItem from="1572036650429" duration="126000" />
       <workItem from="1572090659104" duration="1638000" />
-      <workItem from="1572103093156" duration="1241000" />
+      <workItem from="1572103093156" duration="1319000" />
+      <workItem from="1572164925469" duration="937000" />
     </task>
     <task id="LOCAL-00001" summary="Exam Delete Function">
       <created>1572092176853</created>
@@ -221,7 +219,14 @@
       <option name="project" value="LOCAL" />
       <updated>1572092176853</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Exam Update Function">
+      <created>1572104597416</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1572104597416</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,6 +248,7 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Exam Delete Function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Exam Delete Function" />
+    <MESSAGE value="Exam Update Function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Exam Update Function" />
   </component>
 </project>

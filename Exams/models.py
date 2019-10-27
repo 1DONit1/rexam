@@ -1,4 +1,5 @@
-from django.db.models import Model, CharField, TextField, DateField, ForeignKey, SET_NULL
+from django.db.models import Model, CharField, TextField, DateField, ForeignKey, SET_NULL, CASCADE, ImageField, \
+    BooleanField
 from django.urls import reverse
 
 from Accounts.models import UserAccount
@@ -37,3 +38,32 @@ class Exam(Model):
     class Meta:
         verbose_name = u'Экзамен'
         verbose_name_plural = u'Экзамены'
+
+
+class Question(Model):
+    question_text = TextField(blank=False, null=False, verbose_name=u'Текст вопроса')
+    question_exam = ForeignKey(Exam, blank=False, null=False, on_delete=CASCADE, verbose_name=u'Вопрос к экзамену')
+    question_image = ImageField(upload_to='question_images', blank=True, null=True, verbose_name=u'Изображение вопроса')
+
+    def __str__(self):
+        return self.question_text
+
+    class Meta:
+        verbose_name = u'Вопрос'
+        verbose_name_plural = u'Вопросы'
+        db_table = 'exam_questions'
+
+
+class Answer(Model):
+    answer_text = TextField(blank=False, null=False, verbose_name=u'Текст ответа')
+    answer_question = ForeignKey(Question, blank=False, null=False, on_delete=CASCADE, verbose_name=u'Ответ к вопросу')
+    answer_image = ImageField(upload_to='answer_images', blank=True, null=True, verbose_name=u'Изображение ответа')
+    answer_truth = BooleanField(blank=False, null=False, verbose_name=u'Истинность ответа')
+
+    def __str__(self):
+        return self.answer_text
+
+    class Meta:
+        verbose_name = u'Ответ'
+        verbose_name_plural = u'Ответы'
+        db_table = 'exam_answers'
