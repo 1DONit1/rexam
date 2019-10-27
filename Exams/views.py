@@ -4,8 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
 
-from Exams.forms import ExamsCreateForm, SubjectCreateForm
-from Exams.models import Exam, Subject
+from Exams.forms import ExamsCreateForm, SubjectCreateForm, QuestionCreateForm
+from Exams.models import Exam, Subject, Question
 
 
 class ListExams(LoginRequiredMixin, ListView):
@@ -40,7 +40,7 @@ class ExamDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ExamDetail, self).get_context_data(**kwargs)
-        context['question_count'] = "TODO"
+        context['questions_list'] = Question.objects.filter(question_exam=self.kwargs['pk'])
         return context
 
 
@@ -59,3 +59,18 @@ class ExamUpdate(PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('ExamDetail', kwargs={'pk': self.kwargs['pk']})
+
+
+class QuestionCreate(PermissionRequiredMixin, CreateView):
+    model = Question
+    permission_required = 'Exam.add_question'
+    form_class = QuestionCreateForm
+    template_name = 'Exams/QuestionCreate.html'
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.question_exam = Exam.objects.get(pk=self.kwargs['exam_id'])
+        return super(QuestionCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('ExamDetail', kwargs={'pk': self.kwargs['exam_id']})

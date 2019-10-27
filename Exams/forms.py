@@ -1,6 +1,7 @@
 from django.forms import ModelForm, TextInput, Textarea, Select
+from django.forms.widgets import ChoiceWidget
 
-from Exams.models import Exam, Subject
+from Exams.models import Exam, Subject, Question
 
 
 class ExamsCreateForm(ModelForm):
@@ -20,4 +21,13 @@ class SubjectCreateForm(ModelForm):
         fields = '__all__'
         widgets = {
             'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя предмета'})
+        }
+
+
+class QuestionCreateForm(ModelForm):
+    class Meta:
+        model = Question
+        exclude = ['question_exam']
+        widgets = {
+            'question_text': Textarea(attrs={'class': 'form-control', 'placeholder': 'Текст вопроса'}),
         }

@@ -1,0 +1,37 @@
+<table class="table table-bordered shadow-sm table-hover mt-3">
+    <thead class="thead-light shadow-sm">
+    <tr>
+        <th style="width: 3%; text-align: center" scope="col">№</th>
+        <th scope="col">Текст вопроса</th>
+        <th style="width: 60%;text-align: center" scope="col">Изображение</th>
+        {% if perms.Exams %}
+            <th style="width: 15%;text-align: center" scope="col">Управление</th>
+        {% endif %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for question in questions %}
+        <tr>
+            <th scope="row" class="text-center">{{ forloop.counter }}</th>
+            <td><a href="{{ exam.get_detail_url }}">{{ question.question_text }}</a></td>
+            <td class="text-center">{% if not question.question_image %}-{% else %}{{ question.question_image }}{% endif %}</td>
+            <td class="text-center">
+                {% if perms.Exams.change_exam %}
+                    <a href="{{ exam.get_update_url }}" class="text-primary mr-2">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                {% endif %}
+                {% if perms.Exams.delete_exam %}
+                    <a class="text-danger" href="{{ exam.get_delete_url }}"><i
+                            class="fa fa-trash" aria-hidden="true"></i></a>
+                {% endif %}
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <th scope="row" class="text-center">1</th>
+            <td><p class="pl-3">Вопросы отсутствуют...</p></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
