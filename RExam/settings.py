@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'Exams',
     'fontawesome_5',
     'snowpenguin.django.recaptcha2',
-    'PIL',
 ]
 
 MIDDLEWARE = [
