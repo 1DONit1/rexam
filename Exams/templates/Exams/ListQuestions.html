@@ -14,15 +14,16 @@
         <tr>
             <th scope="row" class="text-center">{{ forloop.counter }}</th>
             <td><a href="{{ exam.get_detail_url }}">{{ question.question_text }}</a></td>
-            <td class="text-center">{% if not question.question_image %}-{% else %}{{ question.question_image }}{% endif %}</td>
+            <td class="text-center">{% if not question.question_image %}-{% else %}
+                <a class="text-info" href="{{ question.question_image.url }}">Изображение</a>{% endif %}</td>
             <td class="text-center">
-                {% if perms.Exams.change_exam %}
-                    <a href="{{ exam.get_update_url }}" class="text-primary mr-2">
+                {% if perms.Exams.change_question %}
+                    <a href="{% url 'QuestionUpdate' pk=question.id exam_id=exam.id %}" class="text-primary mr-2">
                         <i class="fas fa-pen"></i>
                     </a>
                 {% endif %}
-                {% if perms.Exams.delete_exam %}
-                    <a class="text-danger" href="{{ exam.get_delete_url }}"><i
+                {% if perms.Exams.delete_question %}
+                    <a class="text-danger" href="{% url 'QuestionDelete' pk=question.id exam_id=exam.id %}"><i
                             class="fa fa-trash" aria-hidden="true"></i></a>
                 {% endif %}
             </td>

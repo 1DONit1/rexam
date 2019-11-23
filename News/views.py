@@ -49,3 +49,4 @@ class ListNews(LoginRequiredMixin, ListView):
     model = News
     template_name = 'News/ListNews.html'
     paginate_by = 4
+    ordering = ['-news_date']

@@ -21,7 +21,7 @@
                 {{ object.exam_date }} </footer>
 
             {% if perms.Exams.view_question %}
-                {% include "Exams/ListQuestions.html" with questions=questions_list %}
+                {% include "Exams/ListQuestions.html" with questions=questions_list exam=object %}
             {% endif %}
         </div>
     </div>

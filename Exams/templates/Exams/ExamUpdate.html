@@ -1,11 +1,11 @@
 {% extends 'RExam/BaseContent.html' %}
 {% block control-item %}{% endblock %}
-{% block head_title %} Редактировать экзамен {% endblock head_title %}
+{% block head_title %} Редактирование экзамена {% endblock head_title %}
 {% block content %}
     <div class="card bg-light shadow-sm m-1">
         <form class="p-4" action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <h5 class="text-center">Редактировать экзамен</h5>
+            <h5 class="text-center">Редактирование экзамена</h5>
             {% for field in form %}
                 {% if forloop.last %}
                     <div class="form-group">

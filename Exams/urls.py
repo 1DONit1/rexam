@@ -9,4 +9,6 @@ urlpatterns = [
     path('exam_delete/<pk>', ExamDelete.as_view(), name='ExamDelete'),
     path('exam_update/<pk>', ExamUpdate.as_view(), name='ExamUpdate'),
     path('question_create/<int:exam_id>', QuestionCreate.as_view(), name='QuestionCreate'),
+    path('question_delete/<pk>/<int:exam_id>', QuestionDelete.as_view(), name='QuestionDelete'),
+    path('question_update/<pk>/<int:exam_id>', QuestionUpdate.as_view(), name='QuestionUpdate'),
 ]
