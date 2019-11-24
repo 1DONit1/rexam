@@ -51,6 +51,9 @@ class Question(Model):
     def __str__(self):
         return self.question_text
 
+    def get_detail_url(self):
+        return reverse('QuestionDetail', kwargs={'pk': self.id})
+
     class Meta:
         verbose_name = u'Вопрос'
         verbose_name_plural = u'Вопросы'

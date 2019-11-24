@@ -13,7 +13,7 @@
     {% for question in questions %}
         <tr>
             <th scope="row" class="text-center">{{ forloop.counter }}</th>
-            <td><a href="{{ exam.get_detail_url }}">{{ question.question_text }}</a></td>
+            <td><a href="{{ question.get_detail_url }}">{{ question.question_text }}</a></td>
             <td class="text-center">{% if not question.question_image %}-{% else %}
                 <a class="text-info" href="{{ question.question_image.url }}">Изображение</a>{% endif %}</td>
             <td class="text-center">

@@ -1,0 +1,26 @@
+{% extends 'RExam/BaseContent.html' %}
+{% load static %}
+{% block head_title %}{{ object.question_text }}{% endblock head_title %}
+{% block head_end %}
+    <link rel="stylesheet" href="{% static 'Exams/style.css' %}"/>
+{% endblock head_end %}
+{% block control-item %}
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ object.get_add_question_url }}"> Добавить ответ</a>
+    </li>
+{% endblock control-item %}
+{% block content %}
+    <div class="card shadow-sm m-1">
+        <div class="card-header shadow-sm">
+            Описание вопроса
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ object.question_text }}</p>
+            {% if object.question_image %}<img class="rounded img-thumbnail" src="{{ question.question_image.url }}" alt="{{ object.question_text }}"/>{% endif %}
+
+            {% if perms.Exams.view_question %}
+
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

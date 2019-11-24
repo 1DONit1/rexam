@@ -63,7 +63,7 @@ class ExamUpdate(PermissionRequiredMixin, UpdateView):
 
 class QuestionCreate(PermissionRequiredMixin, CreateView):
     model = Question
-    permission_required = 'Exam.add_question'
+    permission_required = 'Exams.add_question'
     form_class = QuestionCreateForm
     template_name = 'Exams/QuestionCreate.html'
 
@@ -78,7 +78,7 @@ class QuestionCreate(PermissionRequiredMixin, CreateView):
 
 class QuestionDelete(PermissionRequiredMixin, DeleteView):
     model = Question
-    permission_required = 'Exam.delete_question'
+    permission_required = 'Exams.delete_question'
     template_name = 'Exams/QuestionDelete.html'
 
     def get_success_url(self):
@@ -93,3 +93,9 @@ class QuestionUpdate(PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('ExamDetail', kwargs={'pk': self.kwargs['exam_id']})
+
+
+class QuestionDetail(PermissionRequiredMixin, DetailView):
+    model = Question
+    template_name = 'Exams/QuestionDetail.html'
+    permission_required = 'Exams.view_question'
