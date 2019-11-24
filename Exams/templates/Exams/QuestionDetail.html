@@ -6,7 +6,9 @@
 {% endblock head_end %}
 {% block control-item %}
     <li class="nav-item active">
-        <a class="nav-link" href="{{ object.get_add_question_url }}"> Добавить ответ</a>
+    {% if perms.Exams.add_answer %}
+        <a class="nav-link" href="{{ object.get_add_answer_url }}"> Добавить ответ</a>
+    {% endif %}
     </li>
 {% endblock control-item %}
 {% block content %}
@@ -18,8 +20,8 @@
             <p class="card-text">{{ object.question_text }}</p>
             {% if object.question_image %}<img class="rounded img-thumbnail" src="{{ question.question_image.url }}" alt="{{ object.question_text }}"/>{% endif %}
 
-            {% if perms.Exams.view_question %}
-
+            {% if perms.Exams.view_answer %}
+                {% include "Exams/ListAnswers.html" with answers=answers_list question=object %}
             {% endif %}
         </div>
     </div>

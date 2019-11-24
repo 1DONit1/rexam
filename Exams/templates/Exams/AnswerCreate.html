@@ -1,0 +1,25 @@
+{% extends 'RExam/BaseContent.html' %}
+{% block control-item %}{% endblock %}
+{% block head_title %} Добавить ответ {% endblock head_title %}
+{% block content %}
+    <div class="card bg-light shadow-sm m-1">
+        <form class="p-4" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h5 class="text-center">Добавить ответ</h5>
+            {% for field in form %}
+                    <div class="form-group">
+                        <label class="d-block" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="alert alert-danger mt-2">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+            {% endfor %}
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-success" type="submit">Добавить</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

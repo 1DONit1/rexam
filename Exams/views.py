@@ -4,8 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
 
-from Exams.forms import ExamsCreateForm, SubjectCreateForm, QuestionCreateForm
-from Exams.models import Exam, Subject, Question
+from Exams.forms import ExamsCreateForm, SubjectCreateForm, QuestionCreateForm, AnswerCreateForm
+from Exams.models import Exam, Subject, Question, Answer
 
 
 class ListExams(LoginRequiredMixin, ListView):
@@ -99,3 +99,24 @@ class QuestionDetail(PermissionRequiredMixin, DetailView):
     model = Question
     template_name = 'Exams/QuestionDetail.html'
     permission_required = 'Exams.view_question'
+
+    def get_context_data(self, **kwargs):
+        context = super(QuestionDetail, self).get_context_data(**kwargs)
+        context['answers_list'] = Answer.objects.filter(answer_question=self.kwargs['pk'])
+        print(context['answers_list'])
+        return context
+
+
+class AnswerCreate(PermissionRequiredMixin, CreateView):
+    model = Answer
+    form_class = AnswerCreateForm
+    permission_required = 'Exams.add_answer'
+    template_name = 'Exams/AnswerCreate.html'
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.answer_question = Question.objects.get(pk=self.kwargs['question_id'])
+        return super(AnswerCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('QuestionDetail', kwargs={'pk': self.kwargs['question_id']})

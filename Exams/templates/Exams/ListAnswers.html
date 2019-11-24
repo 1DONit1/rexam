@@ -1,0 +1,42 @@
+<table class="table table-bordered shadow-sm table-hover mt-3">
+    <thead class="thead-light shadow-sm">
+    <tr>
+        <th style="width: 3%; text-align: center" scope="col">№</th>
+        <th scope="col">Текст ответа</th>
+        <th style="width: 60%;text-align: center" scope="col">Изображение</th>
+        <th scope="col">Верный</th>
+        {% if perms.Exams %}
+            <th style="width: 15%;text-align: center" scope="col">Управление</th>
+        {% endif %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for answer in answers %}
+        <tr>
+            <th scope="row" class="text-center">{{ forloop.counter }}</th>
+            <td><a href="">{{ answer.answer_text }}</a></td>
+            <td class="text-center">{% if not answer.answer_image %}-{% else %}
+                <a class="text-info" href="{{ answer.answer_image.url }}">Изображение</a>{% endif %}</td>
+            <td class="text-center">
+
+            </td>
+            <td class="text-center">
+                {% if perms.Exams.change_question %}
+                    <a href="" class="text-primary mr-2">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                {% endif %}
+                {% if perms.Exams.delete_question %}
+                    <a class="text-danger" href=""><i
+                            class="fa fa-trash" aria-hidden="true"></i></a>
+                {% endif %}
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <th scope="row" class="text-center">1</th>
+            <td><p class="pl-3">Ответы отсутствуют...</p></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
