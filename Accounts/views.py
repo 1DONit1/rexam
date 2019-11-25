@@ -1,11 +1,11 @@
 from django.contrib.auth import logout
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, LoginView, PasswordChangeView
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import CreateView, RedirectView, TemplateView, UpdateView
+from django.views.generic import CreateView, RedirectView, TemplateView, UpdateView, ListView
 
 from Accounts.forms import SignUpForm, SignInForm, ResetPasswordForm, PasswordSetForm, ChangePasswordForm, \
     UserProfileForm
@@ -83,3 +83,9 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         post.username = self.request.user.username
         post.save()
         return super(ProfileView, self).form_valid(form)
+
+
+class UserList(PermissionRequiredMixin, ListView):
+    model = UserAccount
+    permission_required = 'Accounts.view_useraccount'
+    template_name = 'Accounts/UserList.html'

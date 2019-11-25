@@ -1,0 +1,49 @@
+{% extends 'RExam/BaseContent.html' %}
+{% load static %}
+{% block head_title %}Пользователи{% endblock head_title %}
+{% block content %}
+    <div class="m-1">
+        <table class="table table-bordered shadow-sm table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th style="text-align: center" scope="col">№</th>
+                <th style="text-align: center" scope="col">Логин</th>
+                <th style="text-align: center" scope="col">Фамилия</th>
+                <th style="text-align: center" scope="col">Имя</th>
+                <th style="text-align: center" scope="col">Группа</th>
+                {% if perms.Accounts %}
+                    <th style="width: 15%;text-align: center" scope="col">Управление</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in object_list %}
+                <tr>
+                    <th scope="row" class="text-center">{{ forloop.counter }}</th>
+                    <td class="text-center"><a href="">{{ user.username }}</a></td>
+                    <td class="text-center">{{ user.last_name }}</td>
+                    <td class="text-center">{{ user.first_name }}</td>
+                    <td class="text-center">{{ user.study_group }}</td>
+                    <td class="text-center">
+                        {% if perms.Exams.change_exam %}
+                            <a href="{{ exam.get_update_url }}" class="text-primary mr-2">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                        {% endif %}
+                        {% if perms.Exams.delete_exam %}
+                            <a class="text-danger" href="{{ exam.get_delete_url }}"><i
+                                    class="fa fa-trash" aria-hidden="true"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <th scope="row" class="text-center">1</th>
+                    <td><p class="pl-3">Пользователи отсутствуют...</p></td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
