@@ -18,10 +18,10 @@
         </div>
         <div class="card-body">
             <p class="card-text">{{ object.question_text }}</p>
-            {% if object.question_image %}<img class="rounded img-thumbnail" src="{{ question.question_image.url }}" alt="{{ object.question_text }}"/>{% endif %}
+            {% if object.question_image %}<img class="shadow-sm rounded img-thumbnail img-fluid" src="{{ question.question_image.url }}" alt="{{ object.question_text }}"/>{% endif %}
 
             {% if perms.Exams.view_answer %}
-                {% include "Exams/ListAnswers.html" with answers=answers_list question=object %}
+                {% include "Exams/Answer/ListAnswers.html" with answers=answers_list question=object %}
             {% endif %}
         </div>
     </div>

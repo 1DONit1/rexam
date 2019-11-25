@@ -19,9 +19,8 @@
             <footer class="blockquote-footer">{{ object.exam_subject }}
                 {{ object.exam_author }}
                 {{ object.exam_date }} </footer>
-
             {% if perms.Exams.view_question %}
-                {% include "Exams/ListQuestions.html" with questions=questions_list exam=object %}
+                {% include "Exams/Question/ListQuestions.html" with questions=questions_list exam=object %}
             {% endif %}
         </div>
     </div>

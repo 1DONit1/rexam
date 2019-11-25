@@ -18,12 +18,12 @@
                 <a class="text-info" href="{{ question.question_image.url }}">Изображение</a>{% endif %}</td>
             <td class="text-center">
                 {% if perms.Exams.change_question %}
-                    <a href="{% url 'QuestionUpdate' pk=question.id exam_id=exam.id %}" class="text-primary mr-2">
+                    <a href="{{ question.get_update_url }}" class="text-primary mr-2">
                         <i class="fas fa-pen"></i>
                     </a>
                 {% endif %}
                 {% if perms.Exams.delete_question %}
-                    <a class="text-danger" href="{% url 'QuestionDelete' pk=question.id exam_id=exam.id %}"><i
+                    <a class="text-danger" href="{{ question.get_delete_url }}"><i
                             class="fa fa-trash" aria-hidden="true"></i></a>
                 {% endif %}
             </td>

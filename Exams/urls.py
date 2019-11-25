@@ -13,4 +13,6 @@ urlpatterns = [
     path('question_update/<pk>/<int:exam_id>', QuestionUpdate.as_view(), name='QuestionUpdate'),
     path('question_detail/<pk>', QuestionDetail.as_view(), name='QuestionDetail'),
     path('answer_create/<int:question_id>', AnswerCreate.as_view(), name='AnswerCreate'),
+    path('answer_update/<pk>/<int:question_id>', AnswerUpdate.as_view(), name='AnswerUpdate'),
+    path('answer_delete/<pk>/<int:question_id>', AnswerDelete.as_view(), name='AnswerDelete'),
 ]

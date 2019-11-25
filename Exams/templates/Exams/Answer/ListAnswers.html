@@ -2,8 +2,8 @@
     <thead class="thead-light shadow-sm">
     <tr>
         <th style="width: 3%; text-align: center" scope="col">№</th>
-        <th scope="col">Текст ответа</th>
-        <th style="width: 60%;text-align: center" scope="col">Изображение</th>
+        <th style="width: 60%;text-align: center" scope="col">Текст ответа</th>
+        <th scope="col">Изображение</th>
         <th scope="col">Верный</th>
         {% if perms.Exams %}
             <th style="width: 15%;text-align: center" scope="col">Управление</th>
@@ -14,20 +14,20 @@
     {% for answer in answers %}
         <tr>
             <th scope="row" class="text-center">{{ forloop.counter }}</th>
-            <td><a href="">{{ answer.answer_text }}</a></td>
+            <td>{{ answer.answer_text }}</td>
             <td class="text-center">{% if not answer.answer_image %}-{% else %}
                 <a class="text-info" href="{{ answer.answer_image.url }}">Изображение</a>{% endif %}</td>
             <td class="text-center">
-
+                {% if answer.answer_truth %}<i class="fa fa-check text-success" aria-hidden="true"></i>{% endif %}
             </td>
             <td class="text-center">
-                {% if perms.Exams.change_question %}
-                    <a href="" class="text-primary mr-2">
+                {% if perms.Exams.change_answer %}
+                    <a href="{{ answer.get_update_url }}" class="text-primary mr-2">
                         <i class="fas fa-pen"></i>
                     </a>
                 {% endif %}
-                {% if perms.Exams.delete_question %}
-                    <a class="text-danger" href=""><i
+                {% if perms.Exams.delete_answer %}
+                    <a class="text-danger" href="{{ answer.get_delete_url }}"><i
                             class="fa fa-trash" aria-hidden="true"></i></a>
                 {% endif %}
             </td>

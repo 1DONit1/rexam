@@ -10,7 +10,7 @@ from Exams.models import Exam, Subject, Question, Answer
 
 class ListExams(LoginRequiredMixin, ListView):
     model = Exam
-    template_name = 'Exams/ListExams.html'
+    template_name = 'Exams/Exam/ListExams.html'
 
 
 class CreateExam(PermissionRequiredMixin, CreateView):
@@ -18,7 +18,7 @@ class CreateExam(PermissionRequiredMixin, CreateView):
     form_class = ExamsCreateForm
     success_url = reverse_lazy('ListExams')
     permission_required = 'Exams.add_exam'
-    template_name = 'Exams/ExamCreate.html'
+    template_name = 'Exams/Exam/ExamCreate.html'
 
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -31,12 +31,12 @@ class SubjectCreate(PermissionRequiredMixin, CreateView):
     form_class = SubjectCreateForm
     success_url = reverse_lazy('CreateExam')
     permission_required = 'Exams.add_subject'
-    template_name = 'Exams/SubjectCreate.html'
+    template_name = 'Exams/Subject/SubjectCreate.html'
 
 
 class ExamDetail(LoginRequiredMixin, DetailView):
     model = Exam
-    template_name = 'Exams/ExamDetail.html'
+    template_name = 'Exams/Exam/ExamDetail.html'
 
     def get_context_data(self, **kwargs):
         context = super(ExamDetail, self).get_context_data(**kwargs)
@@ -48,14 +48,14 @@ class ExamDelete(PermissionRequiredMixin, DeleteView):
     model = Exam
     permission_required = 'Exams.delete_exam'
     success_url = reverse_lazy('ListExams')
-    template_name = 'Exams/ExamDelete.html'
+    template_name = 'Exams/Exam/ExamDelete.html'
 
 
 class ExamUpdate(PermissionRequiredMixin, UpdateView):
     model = Exam
     permission_required = 'Exams.change_exam'
     form_class = ExamsCreateForm
-    template_name = 'Exams/ExamUpdate.html'
+    template_name = 'Exams/Exam/ExamUpdate.html'
 
     def get_success_url(self):
         return reverse_lazy('ExamDetail', kwargs={'pk': self.kwargs['pk']})
@@ -65,7 +65,7 @@ class QuestionCreate(PermissionRequiredMixin, CreateView):
     model = Question
     permission_required = 'Exams.add_question'
     form_class = QuestionCreateForm
-    template_name = 'Exams/QuestionCreate.html'
+    template_name = 'Exams/Question/QuestionCreate.html'
 
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -79,7 +79,7 @@ class QuestionCreate(PermissionRequiredMixin, CreateView):
 class QuestionDelete(PermissionRequiredMixin, DeleteView):
     model = Question
     permission_required = 'Exams.delete_question'
-    template_name = 'Exams/QuestionDelete.html'
+    template_name = 'Exams/Question/QuestionDelete.html'
 
     def get_success_url(self):
         return reverse_lazy('ExamDetail', kwargs={'pk': self.kwargs['exam_id']})
@@ -88,7 +88,7 @@ class QuestionDelete(PermissionRequiredMixin, DeleteView):
 class QuestionUpdate(PermissionRequiredMixin, UpdateView):
     model = Question
     form_class = QuestionCreateForm
-    template_name = 'Exams/QuestionUpdate.html'
+    template_name = 'Exams/Question/QuestionUpdate.html'
     permission_required = 'Exam.change_question'
 
     def get_success_url(self):
@@ -97,7 +97,7 @@ class QuestionUpdate(PermissionRequiredMixin, UpdateView):
 
 class QuestionDetail(PermissionRequiredMixin, DetailView):
     model = Question
-    template_name = 'Exams/QuestionDetail.html'
+    template_name = 'Exams/Question/QuestionDetail.html'
     permission_required = 'Exams.view_question'
 
     def get_context_data(self, **kwargs):
@@ -111,12 +111,31 @@ class AnswerCreate(PermissionRequiredMixin, CreateView):
     model = Answer
     form_class = AnswerCreateForm
     permission_required = 'Exams.add_answer'
-    template_name = 'Exams/AnswerCreate.html'
+    template_name = 'Exams/Answer/AnswerCreate.html'
 
     def form_valid(self, form):
         instance = form.save(commit=False)
         instance.answer_question = Question.objects.get(pk=self.kwargs['question_id'])
         return super(AnswerCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('QuestionDetail', kwargs={'pk': self.kwargs['question_id']})
+
+
+class AnswerUpdate(PermissionRequiredMixin, UpdateView):
+    model = Answer
+    form_class = AnswerCreateForm
+    permission_required = 'Exams.change_answer'
+    template_name = 'Exams/Answer/AnswerUpdate.html'
+
+    def get_success_url(self):
+        return reverse_lazy('QuestionDetail', kwargs={'pk': self.kwargs['question_id']})
+
+
+class AnswerDelete(PermissionRequiredMixin, DeleteView):
+    model = Answer
+    permission_required = 'Exams.delete_answer'
+    template_name = 'Exams/Answer/AnswerDelete.html'
 
     def get_success_url(self):
         return reverse_lazy('QuestionDetail', kwargs={'pk': self.kwargs['question_id']})
