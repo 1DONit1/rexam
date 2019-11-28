@@ -19,6 +19,10 @@
             <footer class="blockquote-footer">{{ object.exam_subject }}
                 {{ object.exam_author }}
                 {{ object.exam_date }} </footer>
+            <div class="container-fluid m-0 p-0 text-right">
+                <a class="btn btn-success mt-2 " href="{{ object.get_start_url }}">Начать</a>
+            </div>
+
             {% if perms.Exams.view_question %}
                 {% include "Exams/Question/ListQuestions.html" with questions=questions_list exam=object %}
             {% endif %}

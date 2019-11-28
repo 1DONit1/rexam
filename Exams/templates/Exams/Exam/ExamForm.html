@@ -1,0 +1,38 @@
+{% extends 'RExam/BaseContent.html' %}
+{% block control-item %}{% endblock %}
+{% block head_title %} {{ exam_name }} {% endblock head_title %}
+{% block content %}
+    <style>
+        li {
+            list-style-type: none;
+        }
+    </style>
+    <div class="card bg-light shadow-sm m-1">
+        <form class="p-4" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h5 class="text-center">{{ exam_name }}</h5>
+            {% for field in form %}
+                <div class="form-group">
+                    <label class="d-block"
+                           for="{{ field.id_for_label }}">{{ forloop.counter }} {{ field.label | safe }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="alert alert-danger mt-2">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-success" type="submit">Завершить</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

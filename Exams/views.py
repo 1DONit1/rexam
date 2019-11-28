@@ -2,9 +2,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView, FormView
 
-from Exams.forms import ExamsCreateForm, SubjectCreateForm, QuestionCreateForm, AnswerCreateForm
+from Exams.forms import ExamsCreateForm, SubjectCreateForm, QuestionCreateForm, AnswerCreateForm, ExamAttemptForm
 from Exams.models import Exam, Subject, Question, Answer
 
 
@@ -139,3 +139,20 @@ class AnswerDelete(PermissionRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('QuestionDetail', kwargs={'pk': self.kwargs['question_id']})
+
+
+class ExamAttempt(FormView):
+    form_class = ExamAttemptForm
+    template_name = 'Exams/Exam/ExamForm.html'
+
+    def get_success_url(self):
+        return reverse_lazy('ExamDetail', kwargs={'pk': self.kwargs['exam_id']})
+
+    def get_form_kwargs(self):
+        kwargs = super(ExamAttempt, self).get_form_kwargs()
+        kwargs['exam_id'] = self.kwargs['exam_id']
+        return kwargs
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super(ExamAttempt, self).form_valid(form)

@@ -89,3 +89,5 @@ class UserList(PermissionRequiredMixin, ListView):
     model = UserAccount
     permission_required = 'Accounts.view_useraccount'
     template_name = 'Accounts/UserList.html'
+
+

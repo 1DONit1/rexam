@@ -38,6 +38,9 @@ class Exam(Model):
     def get_add_question_url(self):
         return reverse('QuestionCreate', kwargs={'exam_id': self.id})
 
+    def get_start_url(self):
+        return reverse('ExamStart', kwargs={'exam_id': self.id})
+
     class Meta:
         verbose_name = u'Экзамен'
         verbose_name_plural = u'Экзамены'

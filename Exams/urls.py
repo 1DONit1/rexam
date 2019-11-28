@@ -15,4 +15,5 @@ urlpatterns = [
     path('answer_create/<int:question_id>', AnswerCreate.as_view(), name='AnswerCreate'),
     path('answer_update/<pk>/<int:question_id>', AnswerUpdate.as_view(), name='AnswerUpdate'),
     path('answer_delete/<pk>/<int:question_id>', AnswerDelete.as_view(), name='AnswerDelete'),
+    path('exam_start/<int:exam_id>', ExamAttempt.as_view(), name='ExamStart'),
 ]
