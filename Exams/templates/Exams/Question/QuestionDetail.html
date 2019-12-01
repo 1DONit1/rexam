@@ -5,11 +5,9 @@
     <link rel="stylesheet" href="{% static 'Exams/style.css' %}"/>
 {% endblock head_end %}
 {% block control-item %}
-    <li class="nav-item active">
     {% if perms.Exams.add_answer %}
-        <a class="nav-link" href="{{ object.get_add_answer_url }}"> Добавить ответ</a>
+        <a class="dropdown-item" href="{{ object.get_add_answer_url }}"> Добавить ответ</a>
     {% endif %}
-    </li>
 {% endblock control-item %}
 {% block content %}
     <div class="card shadow-sm m-1">

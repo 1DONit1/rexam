@@ -1,0 +1,16 @@
+{% extends 'RExam/BaseContent.html' %}
+{% load static %}
+{% block head_title %}Предметы{% endblock head_title %}
+{% block head_end %}
+    <link rel="stylesheet" href="{% static 'Exams/style.css' %}"/>
+{% endblock head_end %}
+{% block control-item %}
+    {% if perms.Exams.add_exam %}
+        <a class="dropdown-item" href="{% url 'CreateExam' %}"> Добавить предмет</a>
+    {% endif %}
+{% endblock control-item %}
+{% block content %}
+    <div class="m-1">
+        {% include 'Exams/Subject/ListSubject.html' with subjects_list=object_list %}
+    </div>
+{% endblock content %}

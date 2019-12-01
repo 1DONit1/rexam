@@ -7,7 +7,7 @@
             {% csrf_token %}
             <h5 class="text-center">Добавить экзамен</h5>
             {% for field in form %}
-                {% if forloop.last %}
+                {% if forloop.counter == 1 %}
                     <div class="form-group">
                         <label class="d-block" for="{{ field.id_for_label }}">{{ field.label }}</label>
                         {{ field }}

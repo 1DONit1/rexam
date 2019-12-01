@@ -1,0 +1,19 @@
+{% extends 'RExam/BaseContent.html' %}
+{% load static %}
+{% block head_title %}Экзамены{% endblock head_title %}
+{% block head_end %}
+    <link rel="stylesheet" href="{% static 'Exams/style.css' %}"/>
+{% endblock head_end %}
+{% block control-item %}
+    {% if perms.Exams.add_exam %}
+        <a class="dropdown-item" href="{% url 'CreateExam' %}"> Добавить экзамен</a>
+    {% endif %}
+    {% if perms.Exams.view_subject %}
+        <a class="dropdown-item" href="{% url 'SubjectList' %}">Предметы</a>
+    {% endif %}
+{% endblock control-item %}
+{% block content %}
+    <div class="m-1">
+        {% include 'Exams/Exam/ListExams.html' with exams_list=object_list %}
+    </div>
+{% endblock content %}

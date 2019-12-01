@@ -22,16 +22,21 @@
                             <a class="nav-link" href="{% url 'AboutPage' %}">О сайте</a>
                         </li>
                         {% if user.is_staff %}
-                            {% block control-item %}
-                            {% endblock control-item %}
+                            <li class="nav-item active dropdown">
+                                <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Управление</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    {% block control-item %}
+                                    {% endblock control-item %}
+                                    {% if perms.Accounts.view_useraccount %}
+                                        <a class="dropdown-item" href="{% url 'UserList' %}">Пользователи</a>
+                                    {% endif %}
+                                </div>
+                            </li>
                         {% endif %}
                         {% block menu_items %}
                         {% endblock menu_items %}
-                        {% if perms.Accounts.view_useraccount %}
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{% url 'UserList' %}">Пользователи</a>
-                            </li>
-                        {% endif %}
+
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item dropdown align-right">

@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'RExam/ListTable.html' %}
+{% block table_header %}
+    <th style="width: 3%; text-align: center" scope="col">№</th>
+    <th scope="col">Название</th>
+    {% if perms.Exams %}
+        <th style="width: 15%;text-align: center" scope="col">Управление</th>
+    {% endif %}
+{% endblock table_header %}
+{% block table_body %}
+    {% for subject in subjects_list %}
+        <tr>
+            <th scope="row" class="text-center">{{ forloop.counter }}</th>
+            <td>{{ subject.name }}</td>
+            <td class="text-center">
+                {% if perms.Exams.change_subject %}
+                    <a href="{{ subject.get_update_url }}" class="text-primary mr-2">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                {% endif %}
+                {% if perms.Exams.delete_subject %}
+                    <a class="text-danger" href="{{ subject.get_delete_url }}"><i
+                            class="fa fa-trash" aria-hidden="true"></i></a>
+                {% endif %}
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <th scope="row" class="text-center">1</th>
+            <td><p class="pl-3">Предметы отсутствуют...</p></td>
+        </tr>
+    {% endfor %}
+{% endblock table_body %}

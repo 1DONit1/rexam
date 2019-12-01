@@ -1,55 +1,37 @@
-{% extends 'RExam/BaseContent.html' %}
-{% load static %}
-{% block head_title %}Экзамены{% endblock head_title %}
-{% block head_end %}
-    <link rel="stylesheet" href="{% static 'Exams/style.css' %}"/>
-{% endblock head_end %}
-{% block control-item %}
-    <li class="nav-item active">
-        <a class="nav-link" href="{% url 'CreateExam' %}"> Добавить экзамен</a>
-    </li>
-{% endblock control-item %}
-{% block content %}
-    <div class="m-1">
-        <table class="table table-bordered shadow-sm table-hover">
-            <thead class="thead-light">
-            <tr>
-                <th style="width: 3%; text-align: center" scope="col">№</th>
-                <th scope="col">Название</th>
-                <th style="width: 10%;text-align: center" scope="col">Предмет</th>
-                <th style="width: 15%;text-align: center" scope="col">Автор</th>
-                {% if perms.Exams %}
-                    <th style="width: 15%;text-align: center" scope="col">Управление</th>
+{% extends 'RExam/ListTable.html' %}
+{% block table_header %}
+    <th style="width: 3%; text-align: center" scope="col">№</th>
+    <th scope="col">Название</th>
+    <th style="width: 10%;text-align: center" scope="col">Предмет</th>
+    <th style="width: 15%;text-align: center" scope="col">Автор</th>
+    {% if perms.Exams %}
+        <th style="width: 15%;text-align: center" scope="col">Управление</th>
+    {% endif %}
+{% endblock table_header %}
+{% block table_body %}
+    {% for exam in exams_list %}
+        <tr>
+            <th scope="row" class="text-center">{{ forloop.counter }}</th>
+            <td><a href="{{ exam.get_detail_url }}">{{ exam.exam_header }}</a></td>
+            <td class="text-center">{{ exam.exam_subject }}</td>
+            <td class="text-center">{{ exam.exam_author.get_full_name }}</td>
+            <td class="text-center">
+                {% if perms.Exams.change_exam %}
+                    <a href="{{ exam.get_update_url }}" class="text-primary mr-2">
+                        <i class="fas fa-pen"></i>
+                    </a>
                 {% endif %}
-            </tr>
-            </thead>
-            <tbody>
-            {% for exam in object_list %}
-                <tr>
-                    <th scope="row" class="text-center">{{ forloop.counter }}</th>
-                    <td><a href="{{ exam.get_detail_url }}">{{ exam.exam_header }}</a></td>
-                    <td class="text-center">{{ exam.exam_subject }}</td>
-                    <td class="text-center">{{ exam.exam_author.get_full_name }}</td>
-                    <td class="text-center">
-                        {% if perms.Exams.change_exam %}
-                            <a href="{{ exam.get_update_url }}" class="text-primary mr-2">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                        {% endif %}
-                        {% if perms.Exams.delete_exam %}
-                            <a class="text-danger" href="{{ exam.get_delete_url }}"><i
-                                    class="fa fa-trash" aria-hidden="true"></i></a>
-                        {% endif %}
-                    </td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <th scope="row" class="text-center">1</th>
-                    <td><p class="pl-3">Экзамены отсутствуют...</p></td>
-                </tr>
+                {% if perms.Exams.delete_exam %}
+                    <a class="text-danger" href="{{ exam.get_delete_url }}"><i
+                            class="fa fa-trash" aria-hidden="true"></i></a>
+                {% endif %}
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <th scope="row" class="text-center">1</th>
+            <td><p class="pl-3">Экзамены отсутствуют...</p></td>
+        </tr>
 
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-{% endblock content %}
+    {% endfor %}
+{% endblock table_body %}

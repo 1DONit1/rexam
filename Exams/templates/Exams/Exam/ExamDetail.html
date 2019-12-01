@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="{% static 'Exams/style.css' %}"/>
 {% endblock head_end %}
 {% block control-item %}
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ object.get_add_question_url }}"> Добавить вопрос</a>
-    </li>
+    {% if perms.Exams.add_question %}
+        <a class="dropdown-item" href="{{ object.get_add_question_url }}"> Добавить вопрос</a>
+    {% endif %}
 {% endblock control-item %}
 {% block content %}
     <div class="card shadow-sm m-1">

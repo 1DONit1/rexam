@@ -11,7 +11,7 @@ from Exams.models import Exam, Subject, Question, Answer
 
 class ListExams(LoginRequiredMixin, ListView):
     model = Exam
-    template_name = 'Exams/Exam/ListExams.html'
+    template_name = 'Exams/Exam/ExamsPage.html'
 
 
 class CreateExam(PermissionRequiredMixin, CreateView):
@@ -33,6 +33,27 @@ class SubjectCreate(PermissionRequiredMixin, CreateView):
     success_url = reverse_lazy('CreateExam')
     permission_required = 'Exams.add_subject'
     template_name = 'Exams/Subject/SubjectCreate.html'
+
+
+class SubjectUpdate(PermissionRequiredMixin, UpdateView):
+    model = Subject
+    form_class = SubjectCreateForm
+    success_url = reverse_lazy('SubjectList')
+    permission_required = 'Exams.change_subject'
+    template_name = 'Exams/Subject/SubjectUpdate.html'
+
+
+class SubjectList(PermissionRequiredMixin, ListView):
+    model = Subject
+    template_name = 'Exams/Subject/SubjectPage.html'
+    permission_required = 'Exams.view_subject'
+
+
+class SubjectDelete(PermissionRequiredMixin, DeleteView):
+    model = Subject
+    template_name = 'Exams/Subject/SubjectDelete.html'
+    permission_required = 'Exams.delete_subject'
+    success_url = reverse_lazy('SubjectList')
 
 
 class ExamDetail(LoginRequiredMixin, DetailView):

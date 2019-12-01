@@ -9,7 +9,7 @@ from Exams.models import Exam, Subject, Question, Answer
 class ExamsCreateForm(ModelForm):
     class Meta:
         model = Exam
-        fields = ('exam_header', 'exam_description', 'exam_subject')
+        fields = ('exam_subject', 'exam_header', 'exam_description')
         widgets = {
             'exam_header': TextInput(attrs={'class': 'form-control', 'placeholder': 'Заголовок'}),
             'exam_description': Textarea(attrs={'class': 'form-control', 'placeholder': 'Описание'}),

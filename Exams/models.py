@@ -11,6 +11,12 @@ class Subject(Model):
     def __str__(self):
         return self.name
 
+    def get_delete_url(self):
+        return reverse('SubjectDelete', kwargs={'pk': self.id})
+
+    def get_update_url(self):
+        return reverse('SubjectUpdate', kwargs={'pk': self.id})
+
     class Meta:
         verbose_name = u'Предмет'
         verbose_name_plural = u'Предметы'

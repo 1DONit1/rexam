@@ -1,8 +1,6 @@
 {% extends 'RExam/BaseContent.html' %}
 {% block control-item %}
-    <li class="nav-item active">
-        <a class="nav-link" href="{% url 'CreateNews' %}"> Добавить новость</a>
-    </li>
+    <a class="dropdown-item" href="{% url 'CreateNews' %}"> Добавить новость</a>
 {% endblock control-item %}
 {% block content %}
     <div class="container-fluid p-1">
