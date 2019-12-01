@@ -2,28 +2,24 @@
 {% block table_header %}
     <th style="width: 3%; text-align: center" scope="col">№</th>
     <th scope="col">Название</th>
-    <th style="width: 10%;text-align: center" scope="col">Предмет</th>
-    <th style="width: 15%;text-align: center" scope="col">Автор</th>
-    {% if perms.Exams %}
+    {% if perms.Accounts %}
         <th style="width: 15%;text-align: center" scope="col">Управление</th>
     {% endif %}
 {% endblock table_header %}
 {% block table_body %}
-    {% for exam in exams_list %}
+    {% for group in groups_list %}
         <tr>
             <th scope="row" class="text-center">{{ forloop.counter }}</th>
-            <td><a href="{{ exam.get_detail_url }}">{{ exam.exam_header }}</a></td>
-            <td class="text-center">{{ exam.exam_subject }}</td>
-            <td class="text-center">{{ exam.exam_author.get_full_name }}</td>
-            {% if perms.Exams %}
+            <td>{{ group.group_name }}</td>
+            {% if perms.Accounts %}
                 <td class="text-center">
-                    {% if perms.Exams.change_exam %}
-                        <a href="{{ exam.get_update_url }}" class="text-primary mr-2">
+                    {% if perms.Accounts.change_studygroup %}
+                        <a href="{{ group.get_update_url }}" class="text-primary mr-2">
                             <i class="fas fa-pen"></i>
                         </a>
                     {% endif %}
-                    {% if perms.Exams.delete_exam %}
-                        <a class="text-danger" href="{{ exam.get_delete_url }}"><i
+                    {% if perms.Accounts.delete_studygroup %}
+                        <a class="text-danger" href="{{ group.get_delete_url }}"><i
                                 class="fa fa-trash" aria-hidden="true"></i></a>
                     {% endif %}
                 </td>

@@ -5,11 +5,11 @@ from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import CreateView, RedirectView, TemplateView, UpdateView, ListView
+from django.views.generic import CreateView, RedirectView, TemplateView, UpdateView, ListView, DeleteView
 
 from Accounts.forms import SignUpForm, SignInForm, ResetPasswordForm, PasswordSetForm, ChangePasswordForm, \
-    UserProfileForm
-from Accounts.models import UserAccount
+    UserProfileForm, StudyGroupCreateForm
+from Accounts.models import UserAccount, StudyGroup
 from RExam.mixins import NotAuthCheckMixin
 
 
@@ -85,9 +85,51 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         return super(ProfileView, self).form_valid(form)
 
 
+class ProfileUpdate(PermissionRequiredMixin, UpdateView):
+    template_name = 'Accounts/Profile.html'
+    form_class = UserProfileForm
+    model = UserAccount
+    success_url = reverse_lazy('UserList')
+    permission_required = 'Accounts.change_useraccount'
+
+
+class ProfileDelete(PermissionRequiredMixin, DeleteView):
+    template_name = 'Accounts/ProfileDelete.html'
+    success_url = reverse_lazy('UserList')
+    model = UserAccount
+    permission_required = 'Accounts.delete_useraccount'
+
+
 class UserList(PermissionRequiredMixin, ListView):
     model = UserAccount
     permission_required = 'Accounts.view_useraccount'
     template_name = 'Accounts/UserList.html'
 
 
+class StudyGroupCreate(PermissionRequiredMixin, CreateView):
+    model = StudyGroup
+    form_class = StudyGroupCreateForm
+    permission_required = 'Accounts.add_studygroup'
+    template_name = 'Accounts/StudyGroupCreate.html'
+    success_url = reverse_lazy('StudyGroupList')
+
+
+class StudyGroupDelete(PermissionRequiredMixin, DeleteView):
+    model = StudyGroup
+    permission_required = 'Accounts.delete_studygroup'
+    success_url = reverse_lazy('StudyGroupList')
+    template_name = 'Accounts/StudyGroupDelete.html'
+
+
+class StudyGroupUpdate(PermissionRequiredMixin, UpdateView):
+    model = StudyGroup
+    form_class = StudyGroupCreateForm
+    permission_required = 'Accounts.change_studygroup'
+    template_name = 'Accounts/StudyGroupUpdate.html'
+    success_url = reverse_lazy('StudyGroupList')
+
+
+class StudyGroupList(PermissionRequiredMixin, ListView):
+    model = StudyGroup
+    permission_required = 'Accounts.view_studygroup'
+    template_name = 'Accounts/StudyGroupPage.html'

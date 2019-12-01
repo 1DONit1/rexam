@@ -1,5 +1,6 @@
 from django.db.models import Model, CharField, TextField, DateField, ForeignKey, SET_NULL, CASCADE, ImageField, \
     BooleanField
+from django.http import Http404
 from django.urls import reverse
 
 from Accounts.models import UserAccount
@@ -48,7 +49,10 @@ class Exam(Model):
         return reverse('ExamStart', kwargs={'exam_id': self.id})
 
     def get_question_set(self):
-        return Question.objects.filter(question_exam=self.pk)
+        if Question.objects.filter(question_exam=self.pk).exists():
+            return Question.objects.filter(question_exam=self.pk)
+        else:
+            raise Http404("Вопросы по экзамену %s отсутствут" % self.exam_header)
 
     class Meta:
         verbose_name = u'Экзамен'
@@ -74,6 +78,12 @@ class Question(Model):
 
     def get_update_url(self):
         return reverse('QuestionUpdate', kwargs={'pk': self.id, 'exam_id': self.question_exam.id})
+
+    def get_answers_set(self):
+        if Answer.objects.filter(answer_question=self.id).exists():
+            return Answer.objects.filter(answer_question=self.id)
+        else:
+            raise Http404("Ответы по вопросу %s отсутствуют" % self.question_text)
 
     class Meta:
         verbose_name = u'Вопрос'

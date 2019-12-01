@@ -1,0 +1,16 @@
+{% extends 'RExam/BaseContent.html' %}
+{% load static %}
+{% block head_title %}Группы{% endblock head_title %}
+{% block head_end %}
+    <link rel="stylesheet" href="{% static 'Exams/style.css' %}"/>
+{% endblock head_end %}
+{% block control-item %}
+    {% if perms.Accounts.add_studygroup %}
+        <a class="dropdown-item" href="{% url 'StudyGroupCreate' %}"> Добавить группу</a>
+    {% endif %}
+{% endblock control-item %}
+{% block content %}
+    <div class="m-1">
+        {% include 'Accounts/StudyGroupList.html' with groups_list=object_list %}
+    </div>
+{% endblock content %}

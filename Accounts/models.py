@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-
 # Create your models here.
 from django.urls import reverse
 
@@ -11,6 +10,12 @@ class StudyGroup(models.Model):
 
     def __str__(self):
         return self.group_name
+
+    def get_update_url(self):
+        return reverse('StudyGroupUpdate', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('StudyGroupDelete', kwargs={'pk': self.id})
 
     class Meta:
         verbose_name = u'Учебная группа'
@@ -32,3 +37,9 @@ class UserAccount(AbstractUser):
 
     def get_absolute_url(self):
         return reverse('Profile', kwargs={"pk": self.id})
+
+    def get_update_url(self):
+        return reverse('ProfileUpdate', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('ProfileDelete', kwargs={'pk': self.id})

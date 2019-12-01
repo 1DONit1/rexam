@@ -11,4 +11,10 @@ urlpatterns = [
     path('change_password/', ChangePasswordView.as_view(), name='ChangePassword'),
     path('profile/', ProfileView.as_view(), name='Profile'),
     path('user_list/', UserList.as_view(), name='UserList'),
+    path('user_update/<pk>', ProfileUpdate.as_view(), name='ProfileUpdate'),
+    path('user_delete/<pk>', ProfileDelete.as_view(), name='ProfileDelete'),
+    path('study_group_create/', StudyGroupCreate.as_view(), name='StudyGroupCreate'),
+    path('study_group_update/<pk>', StudyGroupUpdate.as_view(), name='StudyGroupUpdate'),
+    path('study_group_delete/<pk>', StudyGroupDelete.as_view(), name='StudyGroupDelete'),
+    path('study_group_list/', StudyGroupList.as_view(), name='StudyGroupList'),
 ]

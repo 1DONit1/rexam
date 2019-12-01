@@ -25,13 +25,13 @@
                     <td class="text-center">{{ user.first_name }}</td>
                     <td class="text-center">{{ user.study_group }}</td>
                     <td class="text-center">
-                        {% if perms.Exams.change_exam %}
-                            <a href="{{ exam.get_update_url }}" class="text-primary mr-2">
+                        {% if perms.Accounts.change_useraccount %}
+                            <a href="{{ user.get_update_url }}" class="text-primary mr-2">
                                 <i class="fas fa-pen"></i>
                             </a>
                         {% endif %}
-                        {% if perms.Exams.delete_exam %}
-                            <a class="text-danger" href="{{ exam.get_delete_url }}"><i
+                        {% if perms.Accounts.delete_useraccount %}
+                            <a class="text-danger" href="{{ user.get_delete_url }}"><i
                                     class="fa fa-trash" aria-hidden="true"></i></a>
                         {% endif %}
                     </td>
@@ -41,7 +41,6 @@
                     <th scope="row" class="text-center">1</th>
                     <td><p class="pl-3">Пользователи отсутствуют...</p></td>
                 </tr>
-
             {% endfor %}
             </tbody>
         </table>

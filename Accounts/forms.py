@@ -6,7 +6,7 @@ from fontawesome_5 import Icon
 from snowpenguin.django.recaptcha2.fields import ReCaptchaField
 from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
 
-from Accounts.models import UserAccount
+from Accounts.models import UserAccount, StudyGroup
 
 
 class SignUpForm(UserCreationForm):
@@ -113,4 +113,13 @@ class UserProfileForm(UserChangeForm):
             'middle_name': Icon('address-card', 'far').as_html(),
             'study_group': Icon('users', 'fas').as_html(),
             'email': Icon('envelope', 'far').as_html(),
+        }
+
+
+class StudyGroupCreateForm(forms.ModelForm):
+    class Meta:
+        model = StudyGroup
+        fields = '__all__'
+        widgets = {
+            'group_name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя группы'}),
         }

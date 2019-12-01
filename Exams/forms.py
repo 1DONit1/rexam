@@ -51,12 +51,13 @@ class ExamAttemptForm(forms.Form):
         super(ExamAttemptForm, self).__init__(*args, **kwargs)
         for question in questions:
             choices = []
+            answers_set = question.get_answers_set()
             question_label = question.question_text
             if question.question_image:
                 question_label += safe(
                     '<a target="_blank" rel="noopener noreferrer" href="' + question.question_image.url + '"><img class="d-block img-thumbnail rounded" width="500px" height="500px" src="' +
                     question.question_image.url + '"/></a>')
-            for answer in Answer.objects.filter(answer_question=question.pk):
+            for answer in answers_set:
                 answer_choice = answer.answer_text
                 if answer.answer_image:
                     answer_choice += '<a target="_blank" rel="noopener noreferrer" href="' + answer.answer_image.url + '"><img class="d-block img-thumbnail rounded" width="300px" height="300px" src="' + answer.answer_image.url + '"/></a>'

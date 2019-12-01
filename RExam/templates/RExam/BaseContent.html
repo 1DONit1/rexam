@@ -31,6 +31,9 @@
                                     {% if perms.Accounts.view_useraccount %}
                                         <a class="dropdown-item" href="{% url 'UserList' %}">Пользователи</a>
                                     {% endif %}
+                                    {% if perms.Accounts.view_studygroup %}
+                                        <a class="dropdown-item" href="{% url 'StudyGroupList' %}">Учебные группы</a>
+                                    {% endif %}
                                 </div>
                             </li>
                         {% endif %}
