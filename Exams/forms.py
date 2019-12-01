@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import ModelForm, TextInput, Textarea, Select
+from django.shortcuts import get_object_or_404
 from django.template.defaultfilters import safe
 
 from Exams.models import Exam, Subject, Question, Answer
@@ -45,18 +46,21 @@ class AnswerCreateForm(ModelForm):
 
 class ExamAttemptForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        questions = Question.objects.filter(question_exam=kwargs.pop('exam_id', None))
+        attempted_exam = get_object_or_404(Exam, pk=kwargs.pop('exam_id', None))
+        questions = attempted_exam.get_question_set()
         super(ExamAttemptForm, self).__init__(*args, **kwargs)
         for question in questions:
             choices = []
             question_label = question.question_text
             if question.question_image:
-                question_label += safe('<img class="d-block img-thumbnail rounded" width="500px" height="500px" src="' +
-                                       question.question_image.url + '"/>')
+                question_label += safe(
+                    '<a target="_blank" rel="noopener noreferrer" href="' + question.question_image.url + '"><img class="d-block img-thumbnail rounded" width="500px" height="500px" src="' +
+                    question.question_image.url + '"/></a>')
             for answer in Answer.objects.filter(answer_question=question.pk):
                 answer_choice = answer.answer_text
                 if answer.answer_image:
-                    answer_choice += '<img class="d-block img-thumbnail rounded" width="300px" height="300px" src="' + answer.answer_image.url + '"/>'
+                    answer_choice += '<a target="_blank" rel="noopener noreferrer" href="' + answer.answer_image.url + '"><img class="d-block img-thumbnail rounded" width="300px" height="300px" src="' + answer.answer_image.url + '"/></a>'
+
                 choices.append((answer.pk, safe(answer_choice)))
             self.fields['question_%d' % question.pk] = forms.MultipleChoiceField(label=question_label,
                                                                                  required=True,

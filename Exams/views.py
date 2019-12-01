@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 # Create your views here.
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView, FormView
 
@@ -69,7 +70,7 @@ class QuestionCreate(PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         post = form.save(commit=False)
-        post.question_exam = Exam.objects.get(pk=self.kwargs['exam_id'])
+        post.question_exam = get_object_or_404(Exam, pk=self.kwargs['exam_id'])
         return super(QuestionCreate, self).form_valid(form)
 
     def get_success_url(self):
@@ -103,7 +104,6 @@ class QuestionDetail(PermissionRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(QuestionDetail, self).get_context_data(**kwargs)
         context['answers_list'] = Answer.objects.filter(answer_question=self.kwargs['pk'])
-        print(context['answers_list'])
         return context
 
 

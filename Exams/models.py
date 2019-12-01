@@ -41,6 +41,9 @@ class Exam(Model):
     def get_start_url(self):
         return reverse('ExamStart', kwargs={'exam_id': self.id})
 
+    def get_question_set(self):
+        return Question.objects.filter(question_exam=self.pk)
+
     class Meta:
         verbose_name = u'Экзамен'
         verbose_name_plural = u'Экзамены'
